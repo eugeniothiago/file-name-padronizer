@@ -13,6 +13,7 @@ path = args.path
 remove_accent = args.remove_accent
 lower = args.lower
 
+
 def main():
     for file in os.listdir(path):
         name, extension = os.path.splitext(file)
@@ -22,7 +23,6 @@ def main():
                 .replace(" ", "_")
                 .replace("(", "")
                 .replace(")", "")
-                .replace(" ", "")
                 .replace("__", "")
                 .replace("___", "")
                 .replace("____", "")
