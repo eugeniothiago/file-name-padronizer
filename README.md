@@ -19,3 +19,6 @@ Example file: **"a incrível carreira de tião do arroz - 2002+05+01.pdf"**
 `python file_padronizer.py --path path/to/the/files --remove_accents True --lower True --recursive True` returns **"a_incrivel_carreira_de_tiao_do_arroz_2002_05_01.pdf"**
 
 `python file_padronizer.py --path path/to/the/files --remove_accents False --lower False --recursive True` returns **"A_INCRÍVEL_CARREIRA_DE_TIÃO_DO_ARROZ_2002_05_01.pdf"**
+
+
+Be aware that if you pass a path with multiple subfolders and the `recursive`parameter setted to `True` the script **will** take some time to process all the files.
