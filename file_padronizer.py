@@ -16,28 +16,31 @@ lower = args.lower
 recursive = args.recursive
 
 
-def access_next_path(path):
+def access_next_path(path: str) -> None:
     if not path.endswith("/"):
-        path = path+"/"
+        path = path + "/"
     for path_item in os.listdir(path):
         path_item_name, extension = os.path.splitext(path_item)
-        new_path = os.path.join(path,path_item_name)+"/"
+        new_path = os.path.join(path, path_item_name) + "/"
         if not extension:
             try:
                 print(new_path)
                 access_next_path(f"{new_path}")
-                #return new_path
+                # return new_path
             except:
                 pass
-        elif extension=='.ini':
+        elif extension == ".ini":
             continue
         else:
-            file_padronizer(path,remove_accent,lower,recursive)
+            file_padronizer(path, remove_accent, lower, recursive)
 
-def file_padronizer(path:str, remove_accent:bool, lower:bool, recursive:bool):
+
+def file_padronizer(
+    path: str, remove_accent: bool, lower: bool, recursive: bool
+) -> None:
     for file in os.listdir(path):
         name, extension = os.path.splitext(file)
-        if extension and extension != '.ini':  # in program_formats or text_formats:
+        if extension and extension != ".ini":  # in program_formats or text_formats:
             new_name = (
                 name.strip()
                 .replace(" ", "_")
@@ -60,8 +63,12 @@ def file_padronizer(path:str, remove_accent:bool, lower:bool, recursive:bool):
             new_file = new_name + extension
             os.rename(src=f"{path}{file}", dst=f"{path}{new_file}")
         elif not extension and recursive:
-            new_path = os.path.join(path,name) + "/"
-            access_next_path(f"{new_path}")
+            try:
+                new_path = os.path.join(path, name) + "/"
+                access_next_path(f"{new_path}")
+            except:
+                continue
 
-if __name__=='__main__':
-    file_padronizer(path,remove_accent,lower,recursive)
+
+if __name__ == "__main__":
+    file_padronizer(path, remove_accent, lower, recursive)
