@@ -2,6 +2,7 @@ import os
 from unidecode import unidecode
 from pathlib import Path
 import argparse
+import re
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--path", type=str, required=True)
@@ -70,17 +71,9 @@ def file_padronizer(
         if name in [".git", ".git/"]:
             continue
         if extension and extension != ".ini":  # in program_formats or text_formats:
-            new_name = (
-                name.strip()
-                .replace(" ", "_")
-                .replace("(", "")
-                .replace(")", "")
-                .replace("__", "")
-                .replace("___", "")
-                .replace("____", "")
-                .replace("-", "_")
-                .replace("+", "_")
-            )
+            new_name = name.strip()
+            new_name = re.sub(r"\+|-|\(|\)|\.|\_|\__|\s","_",new_name)
+            new_name = re.sub(r"\__","_",new_name)
             if remove_accent:
                 new_name = unidecode(unidecode(new_name))
             if lower:
