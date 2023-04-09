@@ -18,7 +18,8 @@ recursive = args.recursive
 
 
 def create_log_structure():
-    os.mkdir("logs")
+    if not os.path.exists('logs'):
+        os.mkdir("logs")
     open("logs/folders_accessed.txt", "w").close()
 
 
