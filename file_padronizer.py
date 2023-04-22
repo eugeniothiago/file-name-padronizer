@@ -74,7 +74,7 @@ def file_padronizer(
         if extension and extension != ".ini":  # in program_formats or text_formats:
             new_name = name.strip()
             new_name = re.sub(r"\+|-|\(|\)|\.|\_|\__|\s|,|_{2,}","_",new_name)
-            new_name = re.sub(r"\__","_",new_name)
+            new_name = re.sub(pattern=r"_+$|_+",repl="",string=new_name)
             if remove_accent:
                 new_name = unidecode(unidecode(new_name))
             if lower:
