@@ -73,7 +73,7 @@ def file_padronizer(
             continue
         if extension and extension != ".ini":  # in program_formats or text_formats:
             new_name = name.strip()
-            new_name = re.sub(r"\+|-|\(|\)|\.|\_|\__|\s|,|_{2,}","_",new_name)
+            new_name = re.sub(pattern=r"\+|-|\(|\)|\.|\_|\__|\s|,|_{2,}",repl="_",string=new_name)
             new_name = re.sub(pattern=r"_+$|_+",repl="",string=new_name)
             if remove_accent:
                 new_name = unidecode(unidecode(new_name))
@@ -81,11 +81,8 @@ def file_padronizer(
                 new_name = new_name.lower()
             elif not lower:
                 new_name = new_name.upper()
-            if new_name.startswith("_"):
-                new_name = new_name[1:]
-
             new_file = new_name + extension
-            os.rename(src=f"{path}{file}", dst=f"{path}{new_file}")
+            os.rename(src=f"{os.path.join(path,file)}", dst=f"{os.path.join(path,new_file)}")
         elif not extension and recursive:
             try:
                 new_path = os.path.join(path, name) + "/"
